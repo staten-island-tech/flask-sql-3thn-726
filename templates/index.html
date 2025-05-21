@@ -1,25 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Ticket Booking</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Idea Bubbles</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='bubbles.js') }}" defer></script>
 </head>
 <body>
-    <h1>🎬 Movie Ticket Booking</h1>
-
-
-    <div class="movies">
-        {% for movie in movies %}
-            <div class="movie">
-                <h2>{{ movie.title }}</h2>
-                <p>Price: ${{ movie.price }}</p>
-                <a href="{{ url_for('book', movie_id=movie.id) }}"><button>Book Now</button></a>
+    <a href="/submit">Submit a new idea</a>
+    <div id="bubble-container">
+        {% for idea in ideas %}
+            <div class="bubble" style="left: {{ (loop.index0 * 50) % 90 }}%; top: {{ (loop.index0 * 80) % 90 }}%;">
+                {{ idea.text }}
             </div>
         {% endfor %}
     </div>
-
-
 </body>
 </html>
