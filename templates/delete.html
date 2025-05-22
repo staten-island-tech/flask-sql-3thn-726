@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Ideas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Delete Ideas</h1>
+        {% for idea in ideas %}
+            <div class="idea">
+                {{ idea.text }}
+                <form method="POST" style="display:inline;">
+                    <input type="hidden" name="id" value="{{ idea.id }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        {% else %}
+            <p>No ideas to delete.</p>
+        {% endfor %}
+        <p><a href="/">Back to Home</a></p>
+    </div>
+</body>
+</html>

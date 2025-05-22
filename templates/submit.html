@@ -2,8 +2,9 @@
 <html>
 <head>
     <title>Submit Idea</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<body>
+<body>\
     <form method="post">
         <textarea name="idea" placeholder="Your idea..." required></textarea><br>
         <button type="submit">Submit</button>

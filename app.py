@@ -1,12 +1,13 @@
-from flask import Flask, render_template, request, redirect
-from models import db, Idea
+from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ideas.db'
-db.init_app(app)
+db = SQLAlchemy(app)
 
-with app.app_context():
-    db.create_all()
+class Idea(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(255), nullable=False)
 
 @app.route('/')
 def index():
@@ -20,8 +21,21 @@ def submit():
         new_idea = Idea(text=text)
         db.session.add(new_idea)
         db.session.commit()
-        return redirect('/')
+        return redirect(url_for('index'))
     return render_template('submit.html')
+
+@app.route('/delete', methods=['GET', 'POST'])
+def delete():
+    if request.method == 'POST':
+        idea_id = request.form.get('id')
+        idea = Idea.query.get(idea_id)
+        if idea:
+            db.session.delete(idea)
+            db.session.commit()
+        return redirect(url_for('delete'))
+    ideas = Idea.query.all()
+    return render_template('delete.html', ideas=ideas)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

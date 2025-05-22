@@ -2,16 +2,20 @@
 <html>
 <head>
     <title>Idea Bubbles</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="{{ url_for('static', filename='bubbles.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <a href="/submit">Submit a new idea</a>
-    <div id="bubble-container">
+    <div class="container">
+        <h1>Idea Bubbles</h1>
+        <a href="/submit">Submit a new idea</a> |
+        <a href="/delete">Delete Ideas</a>
+
         {% for idea in ideas %}
-            <div class="bubble" style="left: {{ (loop.index0 * 50) % 90 }}%; top: {{ (loop.index0 * 80) % 90 }}%;">
-                {{ idea.text }}
+            <div class="idea-box">
+                <p class="idea-text">{{ idea.text }}</p>
             </div>
+        {% else %}
+            <p>No ideas found.</p>
         {% endfor %}
     </div>
 </body>
