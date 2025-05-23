@@ -9,14 +9,44 @@
         <h1>Idea Bubbles</h1>
         <a href="/submit">Submit a new idea</a> |
         <a href="/delete">Delete Ideas</a>
+    </div>
 
+    <div class="bubble-container">
         {% for idea in ideas %}
-            <div class="idea-box">
+            <div class="idea-box" 
+                 style="top: {{ range(5, 80)|random }}vh; left: {{ range(5, 80)|random }}vw;"
+                 draggable="false"
+                 onmousedown="startDrag(event, this)">
                 <p class="idea-text">{{ idea.text }}</p>
             </div>
-        {% else %}
-            <p>No ideas found.</p>
         {% endfor %}
     </div>
+
+    <!-- Add drag script -->
+    <script>
+        let currentBox = null;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        function startDrag(e, box) {
+            currentBox = box;
+            offsetX = e.clientX - box.offsetLeft;
+            offsetY = e.clientY - box.offsetTop;
+            document.addEventListener('mousemove', dragBox);
+            document.addEventListener('mouseup', stopDrag);
+        }
+
+        function dragBox(e) {
+            if (!currentBox) return;
+            currentBox.style.left = (e.clientX - offsetX) + 'px';
+            currentBox.style.top = (e.clientY - offsetY) + 'px';
+        }
+
+        function stopDrag() {
+            document.removeEventListener('mousemove', dragBox);
+            document.removeEventListener('mouseup', stopDrag);
+            currentBox = null;
+        }
+    </script>
 </body>
 </html>

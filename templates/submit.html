@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Submit Idea</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<body>\
-    <form method="post">
-        <textarea name="idea" placeholder="Your idea..." required></textarea><br>
-        <button type="submit">Submit</button>
-    </form>
-    <a href="/">Back to ideas</a>
+<body>
+    <div class="submit-wrapper">
+        <div class="submit-card">
+            <h2>Sumbit random ideas here </h2>
+            <form method="post" class="submit-form">
+                <textarea name="idea" placeholder="Type your idea here..." required></textarea>
+                <button type="submit">🚀 Submit Idea</button>
+            </form>
+            <a href="/">← Back to Idea Board</a>
+        </div>
+    </div>
 </body>
 </html>
